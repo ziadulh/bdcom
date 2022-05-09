@@ -33,6 +33,11 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+
+// department routing
+$routes->get('/departments', 'DepartmentController::index');
+$routes->get('/departments/create', 'DepartmentController::create');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
