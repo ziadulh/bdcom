@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?=base_url('/assets/css/sb-admin-2.min.css');?>" rel="stylesheet">
+    <?= $this->renderSection('css') ?>
 
 </head>
 
@@ -104,6 +105,7 @@
     <!-- Page level custom scripts -->
     <script src="<?=base_url('/assets/js/demo/chart-area-demo.js');?>"></script>
     <script src="<?=base_url('/assets/js/demo/chart-pie-demo.js');?>"></script>
+    <?= $this->renderSection('js') ?>
 
 </body>
 

@@ -13,21 +13,21 @@
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-6 col-md-6 mb-4">
-    <form action="<?= base_url('departments/store') ?>" method="POST">
+    <form action="<?= base_url('departments/update').'/'.$department['id'] ?>" method="POST">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control form-control-sm" id="name" placeholder="Enter Name" name="name" value="<?= set_value('name') ?>" >
+            <input type="text" class="form-control form-control-sm" id="name" placeholder="Enter Name" name="name" value="<?= $department['name'] ?>" >
             <span class="text-danger"><?= $error = $validation->getError('name'); ?></p>
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" placeholder="Enter Description" name="description"><?php echo set_value("description")?></textarea>
+            <textarea class="form-control" id="description" placeholder="Enter Description" name="description"><?= $department['description'] ?></textarea>
         </div>
         <div class="form-group">
             <select class="form-control form-control-sm" name="status">
-                <option value="1" <?= set_select('status', '1', true) ?> >On</option>
-                <option value="0" <?= set_select('status', '0', true) ?>>Off</option>
+                <option value="1" <?= $department['status'] == "1" ? 'selected' : '' ?> >On</option>
+                <option value="0" <?= $department['status'] == "0" ? 'selected' : '' ?> >Off</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

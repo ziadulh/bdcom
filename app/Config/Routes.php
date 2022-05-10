@@ -38,6 +38,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/departments', 'DepartmentController::index');
 $routes->get('/departments/create', 'DepartmentController::create');
 $routes->post('/departments/store', 'DepartmentController::store');
+$routes->get('/departments/edit/(:num)', 'DepartmentController::edit/$1');
+$routes->post('departments/update/(:num)', 'DepartmentController::update/$1');
+$routes->delete('/departments/delete/(:num)', 'DepartmentController::destroy/$1');
 
 /*
  * --------------------------------------------------------------------
