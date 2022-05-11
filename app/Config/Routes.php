@@ -42,6 +42,12 @@ $routes->get('/departments/edit/(:num)', 'DepartmentController::edit/$1');
 $routes->post('departments/update/(:num)', 'DepartmentController::update/$1');
 $routes->delete('/departments/delete/(:num)', 'DepartmentController::destroy/$1');
 
+$routes->get('/designations', 'DesignationController::index');
+$routes->get('/designations/create', 'DesignationController::create');
+$routes->post('/designations/store', 'DesignationController::store');
+$routes->get('/designations/edit/(:num)', 'DesignationController::edit/$1');
+$routes->post('designations/update/(:num)', 'DesignationController::update/$1');
+$routes->delete('/designations/delete/(:num)', 'DesignationController::destroy/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
