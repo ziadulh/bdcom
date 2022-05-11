@@ -27,15 +27,16 @@
     Interface
 </div>
 
+<?php $uri = service('uri'); ?>
 <!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
+<li class="nav-item <?php echo ($uri->getSegment(1)=='departments' ? 'active' : '') ?> ">
+    <a class="nav-link <?php echo ($uri->getSegment(1)=='departments' ? '' : 'collapsed') ?>" href="#" data-toggle="collapse" data-target="#collapseOne"
+        aria-expanded="<?php echo ($uri->getSegment(1)=='departments' ? 'true' : 'false') ?>" aria-controls="collapseOne">
         <!-- <i class="fas fa-fw fa-cog"></i> -->
         <i class="far fa-building"></i>
         <span>Department</span>
     </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseOne" class="collapse <?php echo ($uri->getSegment(1)=='departments' ? 'show' : '') ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Department:</h6>
             <a class="collapse-item" href="<?= base_url('departments') ?>">List</a>
@@ -45,14 +46,14 @@
 </li>
 
 <!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
+<li class="nav-item <?php echo ($uri->getSegment(1)=='designations' ? 'active' : '') ?>">
+    <a class="nav-link <?php echo ($uri->getSegment(1)=='designations' ? 'collapsed' : '') ?>" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="<?php echo ($uri->getSegment(1)=='designations' ? 'true' : 'false') ?>" aria-controls="collapseTwo">
         <!-- <i class="fas fa-fw fa-cog"></i> -->
         <i class="far fa-building"></i>
         <span>Designation</span>
     </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseTwo" class="collapse <?php echo ($uri->getSegment(1)=='designations' ? 'show' : '') ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Designation:</h6>
             <a class="collapse-item" href="<?= base_url('designations') ?>">List</a>
