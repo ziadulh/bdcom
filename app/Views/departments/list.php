@@ -1,6 +1,9 @@
 <?= $this->extend('admin_templete/layout') ?>
 <?= $this->section('css') ?>
-<link href="<?=base_url('/assets/vendo/datatables/dataTables.bootstrap4.min.css');?>" rel="stylesheet">
+<!-- DataTables -->
+  <link rel="stylesheet" href="<?=base_url('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?=base_url('/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?=base_url('/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css');?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -15,8 +18,8 @@
     <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-12 col-md-12 mb-12">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <div class="col-md-12">
+            <table id="example1" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>SL</th>
@@ -38,8 +41,8 @@
                         <td>
                             <form action="<?php echo base_url('departments/delete/'.$department['id']);?>" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
-                                <a href="<?php echo base_url('departments/edit/'.$department['id']);?>" class="btn btn-warning">Edit</a>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <a href="<?php echo base_url('departments/edit/'.$department['id']);?>" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></a>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash fa-sm"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -55,23 +58,36 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-    <!-- Page level plugins -->
-    <script src="<?=base_url('/assets/vendo/datatables/jquery.dataTables.min.js');?>"></script>
-    <script src="<?=base_url('/assets/vendo/datatables/dataTables.bootstrap4.min.js');?>"></script>
+    <!-- DataTables  & Plugins -->
+<script src="<?=base_url('/assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/jszip/jszip.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/pdfmake/pdfmake.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/pdfmake/vfs_fonts.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-buttons/js/buttons.print.min.js');?>"></script>
+<script src="<?=base_url('/assets/plugins/datatables-buttons/js/buttons.colVis.min.js');?>"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable( {
-                dom: 'Blirtp',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-                ]
-            } );
-        } );
-    </script>
-
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 
 <?= $this->endSection() ?>
