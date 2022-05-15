@@ -31,17 +31,17 @@
                 </thead>
                 <tbody>
 
-                    <?php if($designations): ?>
-                    <?php foreach($designations as $key => $designation): ?>
+                    <?php if($users): ?>
+                    <?php foreach($users as $key => $user): ?>
                     <tr>
                         <td><?php echo $key+1; ?></td>
-                        <td><?php echo $designation['name']; ?></td>
-                        <td><?php echo $designation['description']; ?></td>
-                        <td><?php echo ($designation['status'] == "1" ? 'On' : 'Off'); ?></td>
+                        <td><?php echo ($user->f_name.' '.$user->l_name); ?></td>
+                        <td><?php echo $user->note; ?></td>
+                        <td><?php echo ($user->status == "1" ? 'On' : 'Off'); ?></td>
                         <td>
-                            <form action="<?php echo base_url('designations/delete/'.$designation['id']);?>" method="POST">
+                            <form action="<?php echo base_url('users/delete/'.$user->id);?>" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
-                                <a href="<?php echo base_url('designations/edit/'.$designation['id']);?>" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></a>
+                                <a href="<?php echo base_url('users/edit/'.$user->id);?>" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></a>
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash fa-sm"></i></button>
                             </form>
                         </td>

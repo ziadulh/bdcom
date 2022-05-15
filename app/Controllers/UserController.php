@@ -12,7 +12,16 @@ class UserController extends BaseController
 {
     public function index()
     {
-        //
+        $db = \Config\Database::connect();
+        $builder = $db->table('users');
+        $builder->select('*');
+        $builder->join('departments', 'departments.id = users.department_id');
+        $builder->join('designations', 'designations.id = users.designation_id');
+        $query = $builder->get();
+        $users = $query->getResult();
+
+        $data['users'] = $users;
+        return view('users/list', $data);
     }
 
     public function create()
@@ -33,9 +42,9 @@ class UserController extends BaseController
         $input = $this->validate([
             'f_name' => 'required|max_length[20]',
             'l_name' => 'required|max_length[20]',
-            'email' => 'required|max_length[30]',
+            'email' => 'required|max_length[30]|valid_email|is_unique[users.email]',
             'phone' => 'required|max_length[15]',
-            'password' => 'required|max_length[10]|min_length[6]',
+            'password' => 'required|max_length[50]|min_length[6]',
         ]);
 
         if (!$input) {
@@ -58,11 +67,11 @@ class UserController extends BaseController
                 'designation_id' => $this->request->getVar('designation'),
                 'department_id' => $this->request->getVar('department'),
                 'note'  => $this->request->getVar('note'),
-                'password'  => $this->request->getVar('password'),
+                'password'  => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'status'  => $this->request->getVar('status'),
             ];
             $user->insert($data);
-            // return $this->response->redirect(base_url('/'));
+            return $this->response->redirect(base_url('users/'));
         }
 
     }
