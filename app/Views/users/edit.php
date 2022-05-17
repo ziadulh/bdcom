@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Designation</h1>
+                    <h1 class="m-0">User</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,26 +27,72 @@
         <div class="col-md-6">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Designation</h3>
+                    <h3 class="card-title">User</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="<?= base_url('designations/update').'/'.$designation['id'] ?>" method="POST">
+                <form action="<?= base_url('users/update').'/'.$user['id'] ?>" method="POST">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control form-control-sm" id="name" placeholder="Enter Name" name="name" value="<?= $designation['name'] ?>" >
-                            <span class="text-danger"><?= $error = $validation->getError('name'); ?></span>
+                            <label for="f_name">First Name</label>
+                            <input type="text" class="form-control form-control-sm" id="f_name" placeholder="Enter FirstName" name="f_name" value="<?= $user['f_name'] ?>" >
+                            <span class="text-danger"><?= $error = $validation->getError('f_name'); ?></span>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" placeholder="Enter Description" name="description"><?= $designation['description'] ?></textarea>
+                            <label for="email">Last Name</label>
+                            <input type="text" class="form-control form-control-sm" id="l_name" placeholder="Enter FirstName" name="l_name" value="<?= $user['l_name'] ?>" >
+                            <span class="text-danger"><?= $error = $validation->getError('l_name'); ?></span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Status</label>
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control form-control-sm" id="email" placeholder="Enter Email" name="email" value="<?= $user['email'] ?>" >
+                            <span class="text-danger"><?= $error = $validation->getError('email'); ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control form-control-sm" id="phone" placeholder="Enter Phone" name="phone" value="<?= $user['phone'] ?>" >
+                            <span class="text-danger"><?= $error = $validation->getError('phone'); ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select class="form-control form-control-sm" name="department">
+                                <option value="" >Select Department</option>
+                                <?php
+                                foreach($departments as $department)
+                                {
+                                    echo '<option value="'.$department["id"].'" '.($user['department_id'] == $department["id"] ? 'selected' : '').'>'.$department["name"].'</option>';
+                                }
+                                ?>
+                            </select>
+                            <span class="text-danger"><?= $error = $validation->getError('department'); ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="designation">Department</label>
+                            <select class="form-control form-control-sm" name="designation">
+                                <option value="" >Select Designation</option>
+                                <?php
+                                foreach($designations as $designation)
+                                {
+                                    echo '<option value="'.$designation["id"].'"'.($user['designation_id'] == $designation["id"] ? 'selected' : '').'>'.$designation["name"].'</option>';
+                                }
+                                ?>
+                            </select>
+                            <span class="text-danger"><?= $error = $validation->getError('designation'); ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Note</label>
+                            <textarea class="form-control" id="note" placeholder="Enter note" name="note"><?php echo $user["note"]?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" class="form-control form-control-sm" id="password" placeholder="Enter Password" name="password"  >
+                            <span class="text-danger"><?= $error = $validation->getError('password'); ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
                             <select class="form-control form-control-sm" name="status">
-                                <option value="1" <?= $designation['status'] == "1" ? 'selected' : '' ?> >On</option>
-                                <option value="0" <?= $designation['status'] == "0" ? 'selected' : '' ?> >Off</option>
+                                <option value="1" <?= $user['status'] == '1' ? 'selected' : '' ?> >On</option>
+                                <option value="0" <?= $user['status'] == '0' ? 'selected' : '' ?>>Off</option>
                             </select>
                         </div>
                     </div>

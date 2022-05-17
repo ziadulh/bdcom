@@ -35,6 +35,7 @@ $routes->get('/', 'Home::index');
 
 // user routes
 $routes->get('/users', 'UserController::index');
+$routes->post('/users/ajax-datatable', 'UserController::ajaxDataTables');
 $routes->get('/users/create', 'UserController::create');
 $routes->post('/users/store', 'UserController::store');
 $routes->get('/users/edit/(:num)', 'UserController::edit/$1');

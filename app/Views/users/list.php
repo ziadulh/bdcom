@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
 
-                    <?php if($users): ?>
+                    <!-- <?php if($users): ?>
                     <?php foreach($users as $key => $user): ?>
                     <tr>
                         <td><?php echo $key+1; ?></td>
@@ -47,7 +47,7 @@
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                     
                 </tbody>
             </table>
@@ -73,21 +73,71 @@
 <script src="<?=base_url('/assets/plugins/datatables-buttons/js/buttons.colVis.min.js');?>"></script>
 
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+//   $(function () {
+//     $("#example1").DataTable({
+//       "responsive": true, "lengthChange": false, "autoWidth": false,
+//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+//     $('#example2').DataTable({
+//       "paging": true,
+//       "lengthChange": false,
+//       "searching": false,
+//       "ordering": true,
+//       "info": true,
+//       "autoWidth": false,
+//       "responsive": true,
+//     });
+//   });
+
+$(document).ready(function() {
+        $('#example1').DataTable({ 
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5 ]
+                    }
+                },
+                'colvis'
+            ],
+            // lengthMenu: [[ 10, 30, -1], [ 10, 30, "All"]], // page length options
+            bProcessing: true,
+            serverSide: true,
+            scrollY: "400px",
+            scrollCollapse: true,
+            ajax: {
+                url: "<?php echo base_url('users/ajax-datatable')?>", // json datasource
+                type: "post",
+                data: {
+                // key1: value1 - in case if we want send data with request
+                }
+            },
+            columns: [
+                { data: "id" },
+                { data: "name" },
+                { data: "note" },
+                { data: "status" },
+                { data: "action" },
+                
+            ],
+            // columnDefs: [
+            //     { orderable: true, targets: [0, 1, 2, 3] }
+            // ],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
-  });
 </script>
 
 <?= $this->endSection() ?>
