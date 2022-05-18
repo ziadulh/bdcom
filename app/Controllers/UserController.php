@@ -34,6 +34,13 @@ class UserController extends BaseController
         return view('users/list');
     }
 
+    public function show($id=null)
+    {
+        $user = new User();
+        $data['user'] = $user->where('id',$id)->first();
+        return view('users/show', $data);
+    }
+
     public function ajaxDataTables()
     {
         // $db = \Config\Database::connect();

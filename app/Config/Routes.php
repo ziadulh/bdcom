@@ -39,6 +39,7 @@ $routes->post('/users/ajax-datatable', 'UserController::ajaxDataTables');
 $routes->get('/users/create', 'UserController::create');
 $routes->post('/users/store', 'UserController::store');
 $routes->get('/users/edit/(:num)', 'UserController::edit/$1');
+$routes->get('/users/show/(:num)', 'UserController::show/$1');
 $routes->post('users/update/(:num)', 'UserController::update/$1');
 $routes->delete('/users/delete/(:num)', 'UserController::destroy/$1');
 

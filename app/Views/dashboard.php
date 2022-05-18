@@ -20,4 +20,25 @@
     </div>
     <!-- /.content-header -->
 
+    <div class="row">
+        <?php if($users): ?>
+            <?php foreach($users as $key => $user): ?>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h4><?= $user['f_name'].' '.$user['l_name'] ?></h4>
+
+                        <p><?= $user['note']?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="<?= base_url('/users/show/'.$user['id']) ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
 <?= $this->endSection() ?>
