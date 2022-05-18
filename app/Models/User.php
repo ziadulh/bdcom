@@ -9,7 +9,7 @@ class User extends Model
     // protected $DBGroup          = 'default';
     protected $table            = 'users';
     protected $primaryKey       = 'id';
-    protected $allowedFields = ['f_name', 'l_name','email','phone','department_id','designation_id','notenote','password','status'];
+    protected $allowedFields = ['f_name', 'l_name','email','phone','department_id','designation_id','notenote','password','status','note'];
     // protected $useAutoIncrement = true;
     // protected $insertID         = 0;
     // protected $returnType       = 'array';

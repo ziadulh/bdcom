@@ -51,9 +51,29 @@ class UserController extends BaseController
         //        ->addNumbering() //it will return data output with numbering on first column
         //        ->toJson();
 
+        switch ($_REQUEST['order'][0]['column']) {
+            case 0:
+                $order_item = 'id';
+                break;
+            case 1:
+                $order_item = 'f_name, l_name';
+                break;
+            case 2:
+                $order_item = 'note';
+                break;
+            case 3:
+                $order_item = 'status';
+                break;
+            
+            default:
+                $p = 1;
+                break;
+        }
+
         $params['draw'] = $_REQUEST['draw'];
         $start = $_REQUEST['start'];
         $length = $_REQUEST['length'];
+        $order_by = 'ORDER BY '.$order_item.' '.$_REQUEST['order'][0]['dir'].' ';
         /* If we pass any extra data in request from ajax */
         //$value1 = isset($_REQUEST['key1'])?$_REQUEST['key1']:"";
 
@@ -64,23 +84,23 @@ class UserController extends BaseController
             // If we have value in search, searching by id, name, email, mobile
 
             // count all data
-            $total_count = $this->db->query("SELECT * from users WHERE id like '%".$search_value."%' OR f_name like '%".$search_value."%' OR l_name like '%".$search_value."%' OR email like '%".$search_value."%' OR phone like '%".$search_value."%'")->getResult();
+            $total_count = $this->db->query("SELECT * from users WHERE id like '%".$search_value."%' OR f_name like '%".$search_value."%' OR l_name like '%".$search_value."%' OR email like '%".$search_value."%' OR phone like '%".$search_value."%' $order_by")->getResult();
 
-            $data = $this->db->query("SELECT * from users WHERE id like '%".$search_value."%' OR f_name like '%".$search_value."%' OR l_name like '%".$search_value."%' OR email like '%".$search_value."%' OR phone like '%".$search_value."%' limit $start, $length")->getResult();
+            $data = $this->db->query("SELECT * from users WHERE id like '%".$search_value."%' OR f_name like '%".$search_value."%' OR l_name like '%".$search_value."%' OR email like '%".$search_value."%' OR phone like '%".$search_value."%' $order_by limit $start, $length ")->getResult();
         }else{
             // count all data
-            $total_count = $this->db->query("SELECT * from users")->getResult();
+            $total_count = $this->db->query("SELECT * from users $order_by")->getResult();
 
             // get per page data
-            $data = $this->db->query("SELECT * from users limit $start, $length")->getResult();
+            $data = $this->db->query("SELECT * from users $order_by limit $start, $length")->getResult();
         }
 
         foreach ($data as $key => $value) {
             $value->name = $value->f_name.' '.$value->l_name;
             $value->status = $value->status == '1' ? 'Yes' : 'No';
-            $value->action = '<form action="'.base_url('departments/delete/'.$value->id).'" method="POST">
+            $value->action = '<form action="'.base_url('users/delete/'.$value->id).'" method="POST">
             <input type="hidden" name="_method" value="DELETE">
-                <a href="'.base_url('departments/edit/'.$value->id).'" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></a>
+                <a href="'.base_url('users/edit/'.$value->id).'" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></a>
                 <button type="submit" class="btn btn-danger" onclick="return confirm('.'Are you sure?'.')"><i class="fas fa-trash fa-sm"></i></button>
             </form>';
         }
@@ -208,8 +228,8 @@ class UserController extends BaseController
 
     public function destroy($id=null)
     {
-        $designation = new Designation();
-        $data['designation'] = $designation->where('id', $id)->delete($id);
-        return $this->response->redirect(base_url('/designations'));
+        $user = new User();
+        $data['user'] = $user->where('id', $id)->delete($id);
+        return $this->response->redirect(base_url('/users'));
     }
 }

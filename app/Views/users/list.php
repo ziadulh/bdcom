@@ -108,7 +108,13 @@ $(document).ready(function() {
                 {
                     extend: 'pdfHtml5',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 5 ]
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
                     }
                 },
                 'colvis'
@@ -133,9 +139,9 @@ $(document).ready(function() {
                 { data: "action" },
                 
             ],
-            // columnDefs: [
-            //     { orderable: true, targets: [0, 1, 2, 3] }
-            // ],
+            columnDefs: [
+                { orderable: true, targets: [3] }
+            ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
